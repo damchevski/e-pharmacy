@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Fail Order Page</title>
+</head>
+<body style="background-image: url('https://i.imgur.com/dwc6lZ8.jpeg'); background-repeat: no-repeat">
+
+<header th:replace="fragments/header"/>
+<hr>
+<div class="container" style="margin-bottom: 240px">
+    <h2 style="color: red">You cant finish this order because your balance is lower than order price !</h2>
+    <h2 th:text="'Order price is: '+${orderPrice} + '$ and your balance is: '+ ${userBalance} + '$'"></h2>
+
+    <a href="/products" class="btn btn-primary">Back to products</a>
+</div>
+<hr>
+<footer th:replace="fragments/footer"/>
+
+</body>
+</html>

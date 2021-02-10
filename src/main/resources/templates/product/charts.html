@@ -1,0 +1,154 @@
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.w3.org/1999/xhtml">
+
+<head>
+    <!-- Load plotly.js into the DOM -->
+    <script src='https://cdn.plot.ly/plotly-latest.min.js'></script>
+    <style>
+        #nav-tabContent{
+            border: 1px solid black;
+        }
+    </style>
+</head>
+<body style="background-image: url('https://i.imgur.com/dwc6lZ8.jpeg'); background-repeat: no-repeat">
+<header th:replace="fragments/header"/>
+<hr><br>
+
+<div class="container">
+<div class="row">
+    <div class="col-4">
+        <div class="list-group" id="list-tab" role="tablist">
+            <a class="list-group-item list-group-item-action active"
+               id="pc"
+               data-toggle="list"
+               href="#pieChart"
+               role="tab"
+               aria-controls="home"
+               th:text="'Pie Chart'"></a>
+            <a class="list-group-item list-group-item-action"
+               id="bc"
+               data-toggle="list"
+               href="#barChart"
+               role="tab"
+               aria-controls="profile"
+               th:text="'Bar Chart'"></a>
+            <a class="list-group-item list-group-item-action"
+               id="sc"
+               data-toggle="list"
+               href="#scatterPlot"
+               role="tab"
+               aria-controls="messages"
+               th:text="'Scatter Plot'"></a>
+        </div>
+    </div>
+    <div class="col-8">
+        <div class="tab-content" id="nav-tabContent">
+            <div class="tab-pane fade show active"
+                 id="pieChart"
+                 role="tabpanel"
+                 aria-labelledby="list-home-list">
+                <div class="container" style="width: 500px; text-align: center">
+                    <h3>Pie Chart</h3>
+                    <div id='myDiv1' alt="Pie chart" style="text-align: center">
+                        <p>Categories - number of products</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tab-pane fade"
+                 id="barChart"
+                 role="tabpanel"
+                 aria-labelledby="list-profile-list">
+                <div class="container" style="text-align: center">
+                    <h3>Bar Chart</h3>
+                    <div id='myDiv'>
+                    </div>
+                    <p>Manufacturers - number of available products</p>
+                </div>
+            </div>
+
+            <div class="tab-pane fade"
+                 id="scatterPlot"
+                 role="tabpanel"
+                 aria-labelledby="list-profile-list">
+                <div class="container" style="text-align: center">
+                    <h3>Scatter Plot</h3>
+                    <div id='myDiv2'>
+                    </div>
+                    <p>Orders dates - number of products</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+<hr>
+<footer th:replace="fragments/footer"/>
+</body>
+
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    function pieChart() {
+        var categories = /*[[${categories}]]*/ 'default';
+        var numberOfProds = /*[[${prodByCat}]]*/ 'default';
+
+        var data = [{
+            values: numberOfProds,
+            labels: categories,
+            type: 'pie'
+        }];
+
+        var layout = {
+            height: 400,
+            width: 500
+        };
+
+        Plotly.newPlot('myDiv1', data, layout);
+    }
+
+    function barChart() {
+        var manufacturers = /*[[${manufacturers}]]*/ 'default';
+        var numberOfProds = /*[[${prodByMan}]]*/ 'default';
+
+        var data = [
+            {
+                x: manufacturers,
+                y: numberOfProds,
+                type: 'bar'
+            }
+        ];
+
+        Plotly.newPlot('myDiv', data);
+    }
+
+    function scatterPlot() {
+        var dates = /*[[${dates}]]*/ 'default';
+        var numberOfProds = /*[[${prodByDate}]]*/ 'default';
+
+        var trace1 = {
+            x: dates,
+            y: numberOfProds,
+            mode: 'lines',
+            type: 'scatter',
+            name: ''
+        };
+
+        var trace2 = {
+            x: dates,
+            y: numberOfProds,
+            mode: 'markers',
+            type: 'scatter',
+            name: 'Ordered products'
+        };
+        var data = [trace1, trace2];
+
+        Plotly.newPlot('myDiv2', data);
+    }
+
+    pieChart();
+    barChart();
+    scatterPlot();
+    /*]]>*/
+</script>
+
+</html>

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>User Orders Page</title>
+    <style>
+        .container{
+            width: 45%;
+        }
+
+    </style>
+</head>
+<body style="background-image: url('https://i.imgur.com/dwc6lZ8.jpeg'); background-repeat: no-repeat">
+<header th:replace="fragments/header"/>
+<hr>
+
+<div class="container" style="margin-bottom: 100px;">
+
+    <div class="row" th:if="${firstOrder != null}">
+        <div class="col-4">
+            <div class="list-group" id="list-tab" role="tablist">
+                <a class="list-group-item list-group-item-action active"
+                   id="firstOrder"
+                   data-toggle="list"
+                   href="#firstOrder-prods"
+                   role="tab"
+                   aria-controls="home"
+                    th:text="'Order: '+${firstOrder.id}+' at: '+${firstOrder.dateCreated} + ' to: '+${firstOrder.toAddress}"></a>
+                <a th:each="order : ${orders}" class="list-group-item list-group-item-action"
+                   th:id="${order.id}"
+                   data-toggle="list"
+                   th:href="'#order'+${order.id}"
+                   role="tab"
+                   aria-controls="profile"
+                   th:text="'Order: '+${order.id}+' at: '+${order.dateCreated} + ' to: '+${order.toAddress}"></a>
+            </div>
+        </div>
+        <div class="col-8">
+            <div class="tab-content" id="nav-tabContent">
+                <div class="tab-pane fade show active"
+                     id="firstOrder-prods"
+                     role="tabpanel"
+                     aria-labelledby="list-home-list">
+                    <ul class="list-group" style="width: 55%">
+                        <li class="list-group-item" th:each="pr : ${firstOrder.products}"
+                            th:text="${pr.name} + '('+${pr.manufacturer.name}+')'"></li>
+                    </ul>
+                </div>
+
+                <div th:each="order : ${orders}" class="tab-pane fade"
+                     th:id="'order'+${order.id}"
+                     role="tabpanel"
+                     aria-labelledby="list-profile-list">
+
+                    <ul class="list-group" style="width: 55%">
+                        <li class="list-group-item" th:each="pr : ${order.products}"
+                            th:text="${pr.name} + '('+${pr.manufacturer.name}+')'"></li>
+                    </ul>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div th:if="${firstOrder==null}">
+        <h2>You don't have orders !</h2>
+        <h2>Make your first order <a href="/products" class="btn btn-primary">here</a></h2>
+    </div>
+
+</div>
+
+<hr>
+<footer th:replace="fragments/footer"/>
+</body>
+</html>

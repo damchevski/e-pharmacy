@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>User Profile Page</title>
+
+</head>
+<body style="background-image: url('https://i.imgur.com/dwc6lZ8.jpeg'); background-repeat: no-repeat">
+<header th:replace="fragments/header"/>
+<hr>
+<div style="width: 45%; margin-bottom: 190px" class="container" >
+    <div th:if="${hasError}" class="text-danger" th:text="${error}">
+    </div>
+
+    <div th:if="${hasError==false}" class="text-success" th:text="${error}">
+    </div>
+
+    <h3 th:text="'Hello ' + ${user.username} + ' here are your profile details !'"></h3>
+    <ul class="list-group">
+        <li class="list-group-item">Balance: <span th:text="${user.balance}"></span> <a href="/user/addCredits"
+                                                                                        class="btn btn-primary">Add
+            credits</a></li>
+        <li class="list-group-item">Orders: <span th:text="${user.ordersN()}"></span> <a href="/user/myOrders"
+                                                                                         class="btn btn-primary">My
+            orders</a></li>
+    </ul>
+</div>
+<hr>
+<footer th:replace="fragments/footer"/>
+
+</body>
+</html>

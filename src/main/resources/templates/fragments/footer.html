@@ -1,0 +1,69 @@
+<footer>
+    <meta charset="UTF-8">
+    <title>Footer</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.13.0-next.1/esm/popper.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+    <style>
+        footer a.text-light:hover {
+            color: #007bff !important;
+            text-decoration: none;
+        }
+
+        footer .cizgi {
+            border-right: 1px solid #383f44;
+        }
+
+        @media (max-width: 992px) {
+            footer .cizgi {
+                border-right: none;
+            }
+        }
+    </style>
+
+
+    <div class="jumbotron jumbotron-fluid bg-secondary p-4 mt-5 mb-0">
+        <div class="container">
+
+            <div class="row">
+
+                <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4 cizgi">
+                    <div class="card bg-secondary border-0">
+                        <div class="card-body text-center">
+                            <h5 class="card-title text-white display-4" style="font-size:30px">Top Manufacturers: </h5>
+
+                            <p class="text-light d-block lead" th:each="m : ${top}" th:text="${m.name}"></p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-12 col-sm-12 col-md-12 col-lg-4 col-xl-4 cizgi">
+                    <div class="card bg-secondary border-0">
+                        <div class="card-body text-light text-center">
+                            <h5 class="card-title text-white display-4" style="font-size:30px">E-Pharmacy</h5>
+                            <p class="d-inline lead">Project for Web Programming<br>
+                                <a href="https://www.linkedin.com/in/damchevski-ane-0434b41b3/"
+                                   class="text-light d-block lead">Project by</a>
+                            </p>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4">
+                    <div class="card bg-secondary border-0">
+                        <div class="card-body text-center">
+                            <h5 class="card-title text-white display-4" style="font-size:30px">Contact</h5>
+                            <a class="text-light d-block lead" style="margin-left: -20px" href="#"><i
+                                    class="fa fa-phone mr-2"></i>+389 77 919 191</a>
+                            <a class="text-light d-block lead" href="#"><i class="fa fa-envelope mr-2"></i>admin@e_ph.com</a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</footer>

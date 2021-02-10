@@ -1,0 +1,56 @@
+<header>
+    <meta charset="UTF-8">
+    <title>Home Page</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src='https://kit.fontawesome.com/a076d05399.js'></script>
+
+<style>
+    .navbar { background-color: #484848; }
+    .navbar .navbar-nav .nav-link { color: #fff; }
+    .navbar .navbar-nav .nav-link:hover { color: #007bff; }
+    .navbar .navbar-nav .active > .nav-link { color: #007bff; }
+</style>
+
+    <!--- Navbar --->
+    <nav class="navbar navbar-expand-lg">
+        <div class="container">
+            <a class="navbar-brand text-white" href="/"><i class='fas fa-clinic-medical' style='font-size:24px'></i> E-Pharmacy</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#nvbCollapse"
+                    aria-controls="nvbCollapse">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="nvbCollapse">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item pl-1">
+                        <a class="nav-link" href="/"><i class='fas fa-clinic-medical' style='font-size:24px'></i> Home</a>
+                    </li>
+                    <li class="nav-item pl-1">
+                        <a class="nav-link" href="/products"><i class='fas fa-book-medical' style='font-size:24px'></i> Products</a>
+                    </li>
+                    <li class="nav-item pl-1">
+                        <a class="nav-link" href="/categories"><i class='fas fa-pills' style='font-size:24px'></i> Categories</a>
+                    </li>
+                    <li class="nav-item pl-1">
+                        <a class="nav-link" href="/manufacturers"><i class='fas fa-notes-medical' style='font-size:24px'></i> Manufacturers</a>
+                    </li>
+                    <li class="nav-item pl-1">
+                        <a class="nav-link" href="/deliveryCompanies"><i class='fas fa-notes-medical' style='font-size:24px'></i> Delivery Companies</a>
+                    </li>
+                    <li class="nav-item pl-1" sec:authorize="isAuthenticated()">
+                        <a class="nav-link" href="/user/profile"><i class="fa fa-user fa-fw mr-1" th:text="' '+${#request.getRemoteUser()}"></i>  </a>
+                    </li>
+                    <li class="nav-item pl-1" sec:authorize="isAuthenticated()">
+                        <a class="nav-link" href="/logout"><i class="fa fa-sign-in fa-fw mr-1"></i>Logout</a>
+                    </li>
+                    <li class="nav-item pl-1" sec:authorize="!isAuthenticated()">
+                        <a class="nav-link" href="/login"><i class="fa fa-sign-in fa-fw mr-1"></i>Login</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!--# Navbar #-->
+</header>

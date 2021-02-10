@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>List All Products</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.12/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.12/js/dataTables.bootstrap.min.js"></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.0/moment.min.js'></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+            crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+            integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+            crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+            integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+            crossorigin="anonymous"></script>
+
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        tr:nth-of-type(odd) {
+            background: #f4f4f4;
+        }
+
+        tr:nth-of-type(even) {
+            background: #fff;
+        }
+
+        th {
+            background: #007bff;
+            color: #ffffff;
+            font-weight: 300;
+        }
+
+        td,
+        th {
+            padding: 10px;
+            border: 1px solid #ccc;
+            text-align: left;
+        }
+
+        td:nth-of-type(1) {
+            font-weight: 500 !important;
+        }
+
+        td {
+            font-family: 'Roboto', sans-serif !important;
+            font-weight: 300;
+            line-height: 20px;
+        }
+
+        span {
+            font-style: italic
+        }
+
+        @media only screen and (max-width: 760px),
+        (min-device-width: 768px) and (max-device-width: 1024px) {
+
+            table.responsive,
+            .responsive thead,
+            .responsive tbody,
+            .responsive th,
+            .responsive td,
+            .responsive tr {
+                display: block !important;
+            }
+
+            .responsive thead tr {
+                position: absolute !important;
+                top: -9999px;
+                left: -9999px;
+            }
+
+            .responsive tr {
+                border: 1px solid #ccc;
+            }
+
+            .responsive td {
+                border: none;
+                border-bottom: 1px solid #eee !important;
+                position: relative !important;
+                padding-left: 25% !important;
+            }
+
+            .responsive td:before {
+                position: absolute !important;
+                top: 6px;
+                left: 6px;
+                width: 45%;
+                padding-right: 10px;
+                white-space: nowrap !important;
+                font-weight: 500 !important;
+            }
+
+
+            .responsive td:before {
+                content: attr(data-table-header) !important;
+            }
+
+        }
+    </style>
+</head>
+<body style="background-image: url('https://i.imgur.com/dwc6lZ8.jpeg'); background-repeat: no-repeat">
+
+<header th:replace="fragments/header"/>
+<hr>
+<h1 style="text-align: center">Here are all products:</h1>
+<h3 style="text-align: center"><a class="btn btn-info" href="/products/charts">See charts</a></h3>
+<hr>
+
+<form action="/order" method="POST" style="width: 90%; margin-left:60px">
+<table class="table responsive" id="products_table">
+    <thead>
+    <tr>
+        <th scope="col">Name</th>
+        <th scope="col">Milligrams</th>
+        <th scope="col">Price</th>
+        <th scope="col">Available pieces</th>
+        <th scope="col">Category</th>
+        <th scope="col">Manufacturer</th>
+        <th scope="col" sec:authorize="isAuthenticated()">Buy check</th>
+        <th scope="col" sec:authorize="hasRole('ROLE_ADMIN')">Controls</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+    <tr th:each="prod : ${products}">
+        <th scope="row" th:text="${prod.name}"></th>
+        <td th:text="${prod.mg} + 'mg'"></td>
+        <td th:text="${prod.price} + '$'"></td>
+        <td th:text="${prod.quantity}"></td>
+        <td th:text="${prod.category.name}"></td>
+        <td th:text="${prod.manufacturer.name}"></td>
+        <td sec:authorize="isAuthenticated()"><input th:value="${prod.id}" type="checkbox" name="products"></td>
+        <td sec:authorize="hasRole('ROLE_ADMIN')">
+            <a th:href="@{'/products/edit/{id}' (id=${prod.id})}" class="btn btn-primary">Edit</a>
+            <a th:href="@{'/products/delete/{id}' (id=${prod.id})}" class="btn btn-danger"> Delete</a>
+        </td>
+    </tr>
+    <tr>
+        <td><a sec:authorize="hasRole('ROLE_ADMIN')" href="/products/create" class="btn btn-primary">Create new product</a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td sec:authorize="isAuthenticated()"><button type="submit" class="btn btn-success">Order</button></td>
+        <td sec:authorize="hasRole('ROLE_ADMIN')"></td>
+    </tr>
+    </tbody>
+</table>
+</form>
+<hr>
+
+<footer th:replace="fragments/footer"/>
+
+</body>
+</html>
