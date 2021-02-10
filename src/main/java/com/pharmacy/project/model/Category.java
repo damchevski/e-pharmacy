@@ -10,7 +10,7 @@ public class Category {
     public Category() {
     }
 
-    @TableGenerator(name = "cat", initialValue = 5)
+    @TableGenerator(name = "cat", initialValue = 3)
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "cat")
     private Long id;
